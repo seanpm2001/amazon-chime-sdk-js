@@ -60,7 +60,6 @@ import ParallelGroupTask from '../task/ParallelGroupTask';
 import PromoteToPrimaryMeetingTask from '../task/PromoteToPrimaryMeetingTask';
 import ReceiveAudioInputTask from '../task/ReceiveAudioInputTask';
 import ReceiveRemoteVideoPauseResume from '../task/ReceiveRemoteVideoPauseResumeTask';
-import ReceiveTURNCredentialsTask from '../task/ReceiveTURNCredentialsTask';
 import ReceiveVideoInputTask from '../task/ReceiveVideoInputTask';
 import ReceiveVideoStreamIndexTask from '../task/ReceiveVideoStreamIndexTask';
 import SendAndReceiveDataMessagesTask from '../task/SendAndReceiveDataMessagesTask';
@@ -389,7 +388,6 @@ export default class DefaultAudioVideoController
       new ListenForVolumeIndicatorsTask(context),
       new SendAndReceiveDataMessagesTask(context),
       new JoinAndReceiveIndexTask(context),
-      new ReceiveTURNCredentialsTask(context),
       this.receiveIndexTask,
     ]).once();
 
@@ -1353,7 +1351,6 @@ export default class DefaultAudioVideoController
             new SerialGroupTask(this.logger, 'Signaling', [
               new OpenSignalingConnectionTask(this.meetingSessionContext),
               new JoinAndReceiveIndexTask(this.meetingSessionContext),
-              new ReceiveTURNCredentialsTask(this.meetingSessionContext),
             ]),
             new CreatePeerConnectionTask(this.meetingSessionContext),
           ]),
