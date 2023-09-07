@@ -260,6 +260,12 @@ export default class StatsCollector {
           metricReport.currentMetrics[rawMetric] = rawMetricReport[rawMetric];
         } else if (typeof rawMetricReport[rawMetric] === 'string') {
           metricReport.currentStringMetrics[rawMetric] = rawMetricReport[rawMetric];
+        } else if (typeof rawMetricReport[rawMetric] === 'object') {
+          metricReport.previousObjectMetrics[rawMetric] =
+            metricReport.currentObjectMetrics[rawMetric] === undefined
+              ? rawMetricReport[rawMetric]
+              : metricReport.currentObjectMetrics[rawMetric];
+          metricReport.currentObjectMetrics[rawMetric] = rawMetricReport[rawMetric];
         } else {
           this.logger.error(
             `Unknown metric value type ${typeof rawMetricReport[rawMetric]} for metric ${rawMetric}`
@@ -398,6 +404,10 @@ export default class StatsCollector {
       }
 
       for (const metricName in streamMetricReport.currentStringMetrics) {
+        this.addMetricFrame(metricName, clientMetricFrame, metricMap[metricName], Number(ssrc));
+      }
+
+      for (const metricName in streamMetricReport.currentObjectMetrics) {
         this.addMetricFrame(metricName, clientMetricFrame, metricMap[metricName], Number(ssrc));
       }
     }
