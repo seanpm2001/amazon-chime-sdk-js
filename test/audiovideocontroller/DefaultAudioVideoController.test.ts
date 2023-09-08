@@ -136,7 +136,7 @@ describe('DefaultAudioVideoController', () => {
 
   // For JoinAndReceiveIndexTask
   function makeJoinAckFrame(
-    withTurnCreds: boolean = true,
+    withJoinAckFrame: boolean = true,
     defaultServerSideNetworkAdaption: SdkServerSideNetworkAdaption = SdkServerSideNetworkAdaption.NONE
   ): Uint8Array {
     const joinAckFrame = SdkJoinAckFrame.create();
@@ -148,7 +148,7 @@ describe('DefaultAudioVideoController', () => {
     joinAckFrame.defaultServerSideNetworkAdaption = defaultServerSideNetworkAdaption;
     const joinAckSignal = SdkSignalFrame.create();
     joinAckSignal.type = SdkSignalFrame.Type.JOIN_ACK;
-    if (withTurnCreds) {
+    if (withJoinAckFrame) {
       joinAckSignal.joinack = joinAckFrame;
     }
     const buffer = SdkSignalFrame.encode(joinAckSignal).finish();
